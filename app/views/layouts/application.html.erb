@@ -8,9 +8,11 @@
 </head>
 <body>
   <%= render 'layouts/header' %>
-
-  <%= yield %>
+  <div class="container">
+    <%= yield %>
   
-  <p>Copyright &copy; Leo Burdianov</p>
+    <%= render 'layouts/footer' %>
+  </div>    
 </body>
+  
 </html>
