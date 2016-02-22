@@ -284,11 +284,11 @@ has_attached_file :image, styles: { medium: "200x>", thumb: "100x100>" }, defaul
 # create a new file config/dropbox.yml
 # paste the following code inside dropbox.yml file, the values shall be filled as exlained below:
 
-app_key: "4u7v6kohph1hxfw"
-app_secret: "ygfvr63abq9a5fe"
-access_token: "xud4z5mjo8r625gr"
-access_token_secret: "64y6meioy4czks7"
-user_id: "536367809"
+app_key: "4aub7cv6kohph1hxfw"
+app_secret: "yegffgvr63abq9a5fe"
+access_token: "x1u2d34z5mjo8r625gr"
+access_token_secret: "6445y66meioy4czks7"
+user_id: "5z3w6t367809"
 access_type: "app_folder" # the other option is 'dropbox'
 
 
@@ -347,11 +347,11 @@ gem "figaro"
 -> bundle exec figaro install
 # this command created a new file config/application.yml and added it to .gitignore
 # copy the below values from dropbox.yml to application.yml
-app_secret: "ygfvr63abq9a5fe"
-access_token_secret: "64y6meioy4czks7"
+app_secret: "yagbfcvr63abq9a5fe"
+access_token_secret: "6142y36meioy4czks7"
 # convert the keys to ALL CAPS
-APP_SECRET: "ygfvr63abq9a5fe"
-ACCESS_TOKEN_SECRET: "64y6meioy4czks7"
+APP_SECRET: "yagbfcvr63abq9a5fe"
+ACCESS_TOKEN_SECRET: "6142y36meioy4czks7"
 
 # inside dropbox.yml, replace 2 values as follows:
 app_secret: <%= ENV["APP_SECRET"] %>
@@ -733,8 +733,8 @@ before_action :authenticate_user!
 # after sign up, got to Your Account -> Account Settings -> API Keys
 # user the Test Keys for testing, the when the site is open to the public, swap the keys with the Live ones.
 # Copy the Secret Key and Publishable Key and paste them in the config/application.yml as part of the new 2 lines as follows:
-STRIPE_API_KEY: "sk_test_HBb2RpKX6ZYXHmYwwRWXeVTp"
-STRIPE_PUBLIC_KEY: "pk_test_6S54ijxXVgoe80qXs3l9jJgR"
+STRIPE_API_KEY: "sk_test_moLtHBb2RpKX6ZYXHmYwwRWX"
+STRIPE_PUBLIC_KEY: "pk_test_strO6S54ijxXVgoe80qXs3l9"
 # inside app/views/layouts/application.html.erb, just before <%= csrf_meta_tags %> add the following line:
 <%= javascript_include_tag 'https://js.stripe.com/v2/' %>
 # in the same file, after <%= csrf_meta_tags %> add the following line:
