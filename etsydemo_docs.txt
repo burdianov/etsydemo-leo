@@ -928,3 +928,4 @@ transfer = Stripe::Transfer.create(
       :recipient => @seller.recipient
       )
 
+## use credit card number   4000 0000 0000 0077  for testing if no funds available
