@@ -781,3 +781,52 @@ STRIPE_PUBLIC_KEY: "pk_test_strO6S54ijxXVgoe80qXs3l9"
 # then at the bottom, close 2 divs
 
 
+#################################################
+# inside app/assets/javascripts/orders.coffee add the following code in order to do the purchasing via stripe:
+
+jQuery ->
+  Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
+  payment.setupForm()
+
+payment = 
+  setupForm: ->
+    $('#new_order').submit -> 
+      $('input[type=submit]').attr('disabled', true)
+      Stripe.card.createToken($('#new_order'), payment.handleStripeResponse)
+      false
+
+  handleStripeResponse: (status, response) ->
+    if status == 200
+      $('#new_order').append($('<input type="hidden" name="stripeToken" />').val(response.id))
+      $('#new_order')[0].submit()
+    else
+      $('#stripe_error').text(response.error.message).show()
+      $('input[type=submit]').attr('disabled', false)
+
+################
+# deactivate turbolinks for 'Buy it now' button on app/views/listings/show.html.erb so that coffeescript code will be loaded everytime we visit the New order page. Update the following line of code as below:
+<%= link_to 'Buy It Now', new_listing_order_path(@listing), class: 'btn btn-primary', data: { no_turbolink: true } %>
+
+# inside app/views/orders/_form.html.erb, above the address form-group, place the following code to display Stripe errors:
+      <div id="stripe_error" class="alert alert-danger" style="display: none;">
+        <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+      </div>
+
+# inside orders_controller.rb above respond_to do |format| add the following code:
+
+Stripe.api_key = ENV["STRIPE_API_KEY"]
+    token = params[:stripeToken]
+
+    begin
+      charge = Stripe::Charge.create(
+        :amount => (@listing.price * 100).floor,
+        :currency => "usd",
+        :card => token
+        )
+      flash[:notice] = "Thanks for ordering!"
+    rescue Stripe::CardError => e
+      flash[:danger] = e.message
+    end
+
+# inside the same controller, edit the line: format.html { redirect_to root_url, notice: 'Order was successfully created.' } as follows:
+format.html { redirect_to root_url }
